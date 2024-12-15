@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Button, Typography, Container, Paper, Grid, Checkbox, FormControlLabel } from '@mui/material';
+import { Box, Button, Typography, Container, Paper, Grid, Checkbox, FormControlLabel, Modal } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { GameState, GuessResult } from '../types/game';
 
@@ -24,6 +24,7 @@ const GuessingGame: React.FC = () => {
     const [gameState, setGameState] = useState<GameState>(initialGameState);
     const [userGuess, setUserGuess] = useState<string[]>([]);
     const [draggedItem, setDraggedItem] = useState<number | null>(null);
+    const [showSolution, setShowSolution] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
 
     const startGame = useCallback(() => {
@@ -199,24 +200,76 @@ const GuessingGame: React.FC = () => {
                                             '&:hover': {
                                                 backgroundColor: 'action.hover',
                                             },
-                                            transition: 'all 0.2s',
-                                            userSelect: 'none'
                                         }}
                                     >
                                         <Typography variant="h5">{icon}</Typography>
                                     </Paper>
                                 ))}
                             </Box>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={submitGuess}
-                                sx={{ mt: 2 }}
-                                disabled={gameState.isGameWon}
-                            >
-                                Submit Guess
-                            </Button>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={submitGuess}
+                                    disabled={gameState.isGameWon}
+                                >
+                                    Submit Guess
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    onClick={() => setShowSolution(true)}
+                                    sx={{ float: 'right' }}
+                                >
+                                    Solution
+                                </Button>
+                            </Box>
                         </Paper>
+
+                        <Modal
+                            open={showSolution}
+                            onClose={() => setShowSolution(false)}
+                            aria-labelledby="solution-modal"
+                            aria-describedby="game-solution"
+                        >
+                            <Box sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: 400,
+                                bgcolor: 'background.paper',
+                                borderRadius: 2,
+                                boxShadow: 24,
+                                p: 4,
+                            }}>
+                                <Typography variant="h6" component="h2" gutterBottom>
+                                    Solution
+                                </Typography>
+                                <Box sx={{ 
+                                    display: 'flex', 
+                                    gap: 2, 
+                                    justifyContent: 'center', 
+                                    my: 3,
+                                    p: 2,
+                                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                                    borderRadius: 1,
+                                }}>
+                                    {gameState.correctOrder.map((icon, index) => (
+                                        <Typography key={index} variant="h5">
+                                            {icon}
+                                        </Typography>
+                                    ))}
+                                </Box>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    onClick={() => setShowSolution(false)}
+                                >
+                                    Continue Playing
+                                </Button>
+                            </Box>
+                        </Modal>
 
                         <Paper sx={{ p: 3 }}>
                             <Typography variant="h6" gutterBottom>
