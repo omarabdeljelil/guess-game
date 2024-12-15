@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/guess-game/static/css/main.e6c13ad2.css",
-    "main.js": "/guess-game/static/js/main.888fb499.js",
+    "main.js": "/guess-game/static/js/main.f98dbec4.js",
     "static/js/453.2165ce42.chunk.js": "/guess-game/static/js/453.2165ce42.chunk.js",
     "index.html": "/guess-game/index.html",
     "main.e6c13ad2.css.map": "/guess-game/static/css/main.e6c13ad2.css.map",
-    "main.888fb499.js.map": "/guess-game/static/js/main.888fb499.js.map",
+    "main.f98dbec4.js.map": "/guess-game/static/js/main.f98dbec4.js.map",
     "453.2165ce42.chunk.js.map": "/guess-game/static/js/453.2165ce42.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.888fb499.js"
+    "static/js/main.f98dbec4.js"
   ]
 }
